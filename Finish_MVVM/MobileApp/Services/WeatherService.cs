@@ -13,7 +13,7 @@ namespace MobileApp.Services
             try
             {
                 // サイトからデータを取得
-                var response = await _httpClient.GetAsync("https://weatherforecastsampleforprism.azurewebsites.net/weatherforecast");
+                var response = await _httpClient.GetAsync("https://app-maui-training-202310.azurewebsites.net/weatherforecast");
 
                 // レスポンスコード（200 など）を確認
                 response.EnsureSuccessStatusCode();

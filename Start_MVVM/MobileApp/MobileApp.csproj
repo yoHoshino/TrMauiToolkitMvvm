@@ -49,6 +49,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\cloudy.svg" />
+	  <None Remove="Resources\Images\dotnet_bot.svg" />
+	  <None Remove="Resources\Images\partlycloudy.svg" />
+	  <None Remove="Resources\Images\rainy.svg" />
+	  <None Remove="Resources\Images\snowy.svg" />
+	  <None Remove="Resources\Images\sunny.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 	</ItemGroup>
 

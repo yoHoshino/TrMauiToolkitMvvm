@@ -13,7 +13,7 @@
                 Source="{Binding Weather.Summary, StringFormat='{0}.svg'}" />
             <Label Grid.Row="2"
                 HorizontalTextAlignment="Center"
-                Text="{Binding Weather.Temperature, StringFormat='{0}℃'}" />
+                Text="{Binding Weather.TemperatureC, StringFormat='{0}℃'}" />
             <Label Grid.Row="3"
                 HorizontalTextAlignment="Center"
                 Text="{Binding Weather.Summary}" />

@@ -12,19 +12,19 @@ class MockWeatherService : IWeatherService
             {
                 Date = new DateTime(2021,11,1),
                 Summary = "Rainy",
-                Temperature = 20
+                TemperatureC = 20
             },
             new Weather
             {
                 Date = new DateTime(2021,11,2),
                 Summary = "Cloudy",
-                Temperature = 25
+                TemperatureC = 25
             },
             new Weather
             {
                 Date = new DateTime(2021,11,3),
                 Summary = "Sunny",
-                Temperature = 30
+                TemperatureC = 30
             }
         };
 

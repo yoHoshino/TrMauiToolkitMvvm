@@ -36,10 +36,10 @@
                                    Source="{Binding Summary, StringFormat='{0}.svg'}" />
                             <Label Grid.Row="0"
                                    HorizontalTextAlignment="Center"
-                                   Text="{Binding Date, StringFormat='{}{0:yyyy/MM/dd}'}" />
+                                   Text="{Binding Date, StringFormat='{0:yyyy/MM/dd}'}" />
                             <Label Grid.Row="1"
                                    HorizontalTextAlignment="Center"
-                                   Text="{Binding Temperature, StringFormat='{0}℃'}" />
+                                   Text="{Binding TemperatureC, StringFormat='{0}℃'}" />
                             <Label Grid.Row="2"
                                    HorizontalTextAlignment="Center"
                                    Text="{Binding Summary}" />

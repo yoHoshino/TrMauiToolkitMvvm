@@ -54,7 +54,7 @@ public partial class MainPage : ContentPage
         var current = e.CurrentSelection.FirstOrDefault() as Weather;
         collectionView.SelectedItem = null;
 
-        var message = $"{current?.Date:yyyy/MM/dd} は {current?.Temperature}℃ で {current?.Summary} です。";
+        var message = $"{current?.Date:yyyy/MM/dd} は {current?.TemperatureC}℃ で {current?.Summary} です。";
         await Shell.Current.DisplayAlert("weather", message, "OK");
     }
 
@@ -68,19 +68,19 @@ public partial class MainPage : ContentPage
                 {
                     Date = new DateTime(2020,11,1),
                     Summary = "Rainy",
-                    Temperature = 20
+                    TemperatureC = 20
                 },
                 new Weather
                 {
                     Date = new DateTime(2020,11,2),
                     Summary = "Cloudy",
-                    Temperature = 25
+                    TemperatureC = 25
                 },
                 new Weather
                 {
                     Date = new DateTime(2020,11,3),
                     Summary = "Sunny",
-                    Temperature = 30
+                    TemperatureC = 30
                 }
             };
 
@@ -96,7 +96,7 @@ public partial class MainPage : ContentPage
     //    try
     //    {
     //        // サイトからデータを取得
-    //        var response = await _httpClient.GetAsync("https://weatherforecastsampleforprism.azurewebsites.net/weatherforecast");
+    //        var response = await _httpClient.GetAsync("https://app-maui-training-202310.azurewebsites.net/weatherforecast");
     //        // レスポンスコード（200 など）を確認
     //        response.EnsureSuccessStatusCode();
 

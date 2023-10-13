@@ -76,7 +76,7 @@
 - 最新の Windows または macOS
 - 最新の Visual Studio 2022 または Visual Studio 2022 for Mac
     - Microsoft.Toolkit.Mvvm パッケージ
-    - ※ Mac では .NET MAUI はPreviewです（2022.10.1 現在）
+    - ※ Visual Studio for Mac は2024年に廃止がアナウンスされています。今後のMacにおける開発はVisual Studio Code の[.NET MAUI 拡張機能](https://learn.microsoft.com/ja-jp/dotnet/maui/get-started/installation?tabs=visual-studio-code)に移行していくでしょう。（2023.10.14 現在はPreview）
 - Android SDK
     - Android Emulator
 
@@ -186,7 +186,7 @@ Android エミュレーターが起動して、次のような画面が表示さ
 #### `Platforms` フォルダ
 各ターゲット プラットフォームのフォルダーには、各プラットフォームでアプリを起動するプラットフォーム固有のコードと、追加するプラットフォーム コードが含まれています。
 
-各子フォルダーは、.NET MAUI がターゲットにできるプラットフォームを表します。
+各種フォルダーは、.NET MAUI がターゲットにできるプラットフォームを表します。
 
 
 #### `MauiProgram.cs`
@@ -399,23 +399,23 @@ public class Weather
     <StackLayout Orientation="Horizontal">
         <Label VerticalTextAlignment="Center" Text="Can Click" />
         <Switch x:Name="canClickSwitch"
-                IsToggled="True"
-                Toggled="SwitchOnToggled" />
+        IsToggled="True"
+        Toggled="SwitchOnToggled" />
     </StackLayout>
     <Button x:Name="button"
-            Clicked="GetWeathersButtonOnClicked"
-            Text="Get Weathers" />
+    Clicked="GetWeathersButtonOnClicked"
+    Text="Get Weathers" />
 
     <RefreshView x:Name="refreshView" Refreshing="PullToRefreshing">
         <CollectionView x:Name="collectionView"
-                        ItemsSource="{Binding}"
-                        SelectionChanged="OnCollectionViewSelectionChanged"
-                        SelectionMode="Single">
+                ItemsSource="{Binding}"
+                SelectionChanged="OnCollectionViewSelectionChanged"
+                SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="{Binding Date, StringFormat='{}{0:yyyy/MM/dd}'}" />
-                        <Label Text="{Binding Temperature, StringFormat='{0}℃'}" />
+                        <Label Text="{Binding Date, StringFormat='{0:yyyy/MM/dd}'}" />
+                        <Label Text="{Binding TemperatureC, StringFormat='{0}℃'}" />
                         <Label Text="{Binding Summary}" />
                     </StackLayout>
                 </DataTemplate>
@@ -481,7 +481,7 @@ private async void OnCollectionViewSelectionChanged(object sender, SelectionChan
     var current = e.CurrentSelection.FirstOrDefault() as Weather;
     collectionView.SelectedItem = null;
 
-    var message = $"{current?.Date:yyyy/MM/dd} は {current?.Temperature}℃ で {current?.Summary} です。";
+    var message = $"{current?.Date:yyyy/MM/dd} は {current?.TemperatureC}℃ で {current?.Summary} です。";
     await Shell.Current.DisplayAlert("weather", message, "OK");
 }
 
@@ -536,7 +536,7 @@ void GetWeathersAsync()
 
 ### Web API への接続に書き換え
 
-`GetWeathersAsync` メソッドを実際の Web API [https://sampleapiformauitraining.azurewebsites.net//weatherforecast](https://weatherforecastsampleforprism.azurewebsites.net/weatherforecast) からデータを取得する以下のコードで置き換えます。
+`GetWeathersAsync` メソッドを実際の Web API [https://sampleapiformauitraining.azurewebsites.net//weatherforecast](https://app-maui-training-202310.azurewebsites.net/weatherforecast) からデータを取得する以下のコードで置き換えます。
 
 
 ```csharp
@@ -551,7 +551,7 @@ async Task GetWeathersAsync()
     try
     {
         // サイトからデータを取得
-        var response = await _httpClient.GetAsync("https://weatherforecastsampleforprism.azurewebsites.net/weatherforecast");
+        var response = await _httpClient.GetAsync("https://app-maui-training-202310.azurewebsites.net/weatherforecast");
         // レスポンスコード（200 など）を確認
         response.EnsureSuccessStatusCode();
 
@@ -1036,33 +1036,38 @@ CommunityToolkit.Mvvmを使用したMVVMとデータバインディングの解�
 ここからは「Start_MVVM」プロジェクトを使って、.NET MAUI + CommunityToolkit.Mvvmの構成で実装をします。
 まずはVisual Studioで「Start_MVVM」プロジェクトを開き、Web API への接続を追加しましょう。
 
-今回は Visual Studio の ASP.NET Core Web アプリケーションの API で作成されるテンプレートアプリをそのまま [https://weatherforecastsampleforprism.azurewebsites.net/weatherforecast](https://weatherforecastsampleforprism.azurewebsites.net/weatherforecast) にアップロードしてあります。（時間があれば同じものをローカルホストで動かします。）URL にアクセスして表示される JSON を見てみましょう。
+今回は Visual Studio の ASP.NET Core Web アプリケーションの API で作成されるテンプレートアプリをそのまま [https://app-maui-training-202310.azurewebsites.net/weatherforecast](https://app-maui-training-202310.azurewebsites.net/weatherforecast) にアップロードしてあります。（時間があれば同じものをローカルホストで動かします。）URL にアクセスして表示される JSON を見てみましょう。
 
 ```json
 [
   {
-    "date": "2022-09-20T09:20:29.1731766+00:00",
-    "temperature": -16,
+    "date": "2023-10-14T14:35:11.7135195+00:00",
+    "temperatureC": 30,
+    "temperatureF": 85,
     "summary": "Snowy"
   },
   {
-    "date": "2022-09-21T09:20:29.1733714+00:00",
-    "temperature": -3,
-    "summary": "Snowy"
-  },
-  {
-    "date": "2022-09-22T09:20:29.1733728+00:00",
-    "temperature": 35,
-    "summary": "Cloudy"
-  },
-  {
-    "date": "2022-09-23T09:20:29.1733826+00:00",
-    "temperature": 29,
+    "date": "2023-10-15T14:35:11.7136873+00:00",
+    "temperatureC": 16,
+    "temperatureF": 60,
     "summary": "PartlyCloudy"
   },
   {
-    "date": "2022-09-24T09:20:29.1733829+00:00",
-    "temperature": -17,
+    "date": "2023-10-16T14:35:11.7136899+00:00",
+    "temperatureC": -14,
+    "temperatureF": 7,
+    "summary": "Rainy"
+  },
+  {
+    "date": "2023-10-17T14:35:11.7136902+00:00",
+    "temperatureC": 40,
+    "temperatureF": 103,
+    "summary": "PartlyCloudy"
+  },
+  {
+    "date": "2023-10-18T14:35:11.7136904+00:00",
+    "temperatureC": 37,
+    "temperatureF": 98,
     "summary": "Snowy"
   }
 ]
@@ -1074,8 +1079,6 @@ CommunityToolkit.Mvvmを使用したMVVMとデータバインディングの解�
 まずはこの JSON をオブジェクトとして操作するための Model クラスを作成します。
 
 事前に Web API から表示されている JSON をクリップボードにコピーしておきます。
-
-MobileApp プロジェクトを右クリックして「新しいフォルダー」から `Models` フォルダを作成します。
 
 `Models` フォルダを右クリックして「追加＞クラス」から `Weather` クラスを作成します。
 
@@ -1114,8 +1117,6 @@ public class Weather
 
 次に Web API からデータを取得するインターフェイスと実装を作成します。
 
-`Services` フォルダを作成します。
-
 `Services` フォルダを右クリックして「追加＞新しい項目」から「インターフェイス」を選択し、`IWeaterService` を作成します。
 
 <img src="./images/mvvm-04.png" width="600" />
@@ -1149,7 +1150,7 @@ class WeatherService : IWeatherService
         try
         {
             // サイトからデータを取得
-            var response = await _httpClient.GetAsync("https://weatherforecastsampleforprism.azurewebsites.net/weatherforecast");
+            var response = await _httpClient.GetAsync("https://app-maui-training-202310.azurewebsites.net/weatherforecast");
 
             // レスポンスコード（200 など）を確認
             response.EnsureSuccessStatusCode();
@@ -1373,10 +1374,10 @@ Layout の詳細は [CollectionView レイアウトの指定 | Microsoft Docs](h
 <StackLayout Padding="10" Orientation="Horizontal">
     <Label Grid.Row="0"
            HorizontalTextAlignment="Center"
-           Text="{Binding Date, StringFormat='{}{0:yyyy/MM/dd}'}" />
+           Text="{Binding Date, StringFormat='{0:yyyy/MM/dd}'}" />
     <Label Grid.Row="1"
            HorizontalTextAlignment="Center"
-           Text="{Binding Temperature, StringFormat='{0}℃'}" />
+           Text="{Binding TemperatureC, StringFormat='{0}℃'}" />
     <Label Grid.Row="2"
            HorizontalTextAlignment="Center"
            Text="{Binding Summary}" />
@@ -1416,7 +1417,9 @@ ImageSource インスタンスは、イメージソースの種類ごとに静�
 
 ##### プロジェクトに画像を追加
 
-「Resources/Images」にダウンロードした「Resources」フォルダ内の 5つの png ファイルをドラッグ＆ドロップして追加します。
+「TrMauiToolkitMvvm\Resources」フォルダ内の 5つの png ファイルをドラッグ＆ドロップして追加します。
+
+<img src="./images/mvvm-14.png" width="300">
 
 <img src="./images/mvvm-07.png" width="300">
 
@@ -1447,10 +1450,10 @@ ImageSource インスタンスは、イメージソースの種類ごとに静�
                         Source="{Binding Summary, StringFormat='{0}.svg'}" />
                 <Label Grid.Row="0"
                         HorizontalTextAlignment="Center"
-                        Text="{Binding Date, StringFormat='{}{0:yyyy/MM/dd}'}" />
+                        Text="{Binding Date, StringFormat='{0:yyyy/MM/dd}'}" />
                 <Label Grid.Row="1"
                         HorizontalTextAlignment="Center"
-                        Text="{Binding Temperature, StringFormat='{0}℃'}" />
+                        Text="{Binding TemperatureCC, StringFormat='{0}℃'}" />
                 <Label Grid.Row="2"
                         HorizontalTextAlignment="Center"
                         Text="{Binding Summary}" />
@@ -1583,7 +1586,7 @@ SelectionMode="Single"
                 Source="{Binding Weather.Summary, StringFormat='{0}.svg'}" />
             <Label Grid.Row="2"
                 HorizontalTextAlignment="Center"
-                Text="{Binding Weather.Temperature, StringFormat='{0}℃'}" />
+                Text="{Binding Weather.TemperatureC, StringFormat='{0}℃'}" />
             <Label Grid.Row="3"
                 HorizontalTextAlignment="Center"
                 Text="{Binding Weather.Summary}" />
@@ -1647,19 +1650,19 @@ class MockWeatherService : IWeatherService
             {
                 Date = new DateTime(2021,11,1),
                 Summary = "Rainy",
-                Temperature = 20
+                TemperatureC = 20
             },
             new Weather
             {
                 Date = new DateTime(2021,11,2),
                 Summary = "Cloudy",
-                Temperature = 25
+                TemperatureC = 25
             },
             new Weather
             {
                 Date = new DateTime(2021,11,3),
                 Summary = "Sunny",
-                Temperature = 30
+                TemperatureC = 30
             }
         };
 
