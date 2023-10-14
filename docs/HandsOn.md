@@ -367,7 +367,7 @@ namespace MobileApp
     public class Weather
     {
         public DateTime Date { get; set; }
-        public int Temperature { get; set; }
+        public int TemperatureC { get; set; }
         public string Summary { get; set; }
     }
 }
@@ -380,7 +380,7 @@ namespace MobileApp;
 public class Weather
 {
     public DateTime Date { get; set; }
-    public int Temperature { get; set; }
+    public int TemperatureC { get; set; }
     public string Summary { get; set; }
 }
 ```
@@ -495,19 +495,19 @@ void GetWeathersAsync()
             {
                 Date = new DateTime(2020,11,1),
                 Summary = "Rainy",
-                Temperature = 20
+                TemperatureC = 20
             },
             new Weather
             {
                 Date = new DateTime(2020,11,2),
                 Summary = "Cloudy",
-                Temperature = 25
+                TemperatureC = 25
             },
             new Weather
             {
                 Date = new DateTime(2020,11,3),
                 Summary = "Sunny",
-                Temperature = 30
+                TemperatureC = 30
             }
         };
 
@@ -1097,7 +1097,7 @@ public class Rootobject
 public class Class1
 {
     public DateTime date { get; set; }
-    public int temperature { get; set; }
+    public int TemperatureC { get; set; }
     public string summary { get; set; }
 }
 ```
@@ -1108,7 +1108,7 @@ Rootobject クラスは削除、Class1 を Weather に修正、各プロパテ�
 public class Weather
 {
     public DateTime Date { get; set; }
-    public int Temperature { get; set; }
+    public int TemperatureC { get; set; }
     public string Summary { get; set; }
 }
 ```
@@ -1453,7 +1453,7 @@ ImageSource インスタンスは、イメージソースの種類ごとに静�
                         Text="{Binding Date, StringFormat='{0:yyyy/MM/dd}'}" />
                 <Label Grid.Row="1"
                         HorizontalTextAlignment="Center"
-                        Text="{Binding TemperatureCC, StringFormat='{0}℃'}" />
+                        Text="{Binding TemperatureC, StringFormat='{0}℃'}" />
                 <Label Grid.Row="2"
                         HorizontalTextAlignment="Center"
                         Text="{Binding Summary}" />
@@ -1540,7 +1540,7 @@ private async void SelectWeather()
         return;
 
     // ダイアログを表示するパターン
-    await Shell.Current.DisplayAlert("Dialog Title", $"{SelectedWeather.Date:yyyy/MM/dd} は {SelectedWeather.Temperature}℃ で {SelectedWeather.Summary} です。", "OK");
+    await Shell.Current.DisplayAlert("Dialog Title", $"{SelectedWeather.Date:yyyy/MM/dd} は {SelectedWeather.TemperatureC}℃ で {SelectedWeather.Summary} です。", "OK");
 }
 ```
 
